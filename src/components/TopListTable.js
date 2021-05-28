@@ -6,13 +6,13 @@ const TopListTable = () => {
 		<>
 
 
-			<h1 className='mb-4'>Top Countries</h1>
+			<h3 className='mb-4'>Top Countries</h3>
 
 			<Row>
 				<Table striped hover>
 					<thead>
 					<tr>
-						<th>Country</th>
+						<th></th>
 						<th>Confirmed</th>
 						<th>Recovered</th>
 						<th>Deaths</th>
