@@ -3,7 +3,7 @@ import { Row, Col, Form, Card } from 'react-bootstrap'
 import Loader from './Loader'
 
 
-const MainCounter = () => {
+const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 
 
 	
@@ -11,10 +11,6 @@ const MainCounter = () => {
 	const [countries, setCountries] = useState([])
 	const [country, setCountry] = useState('world')
 	const [results, setResults] = useState('today')
-
-	const [worldCounts, setWorldCounts] = useState({})
-	const [countryCounts, setCountryCounts] = useState([])
-	const [countsFetched, setCountsFetched] = useState(false)
 
 	const [newConfirmed, setNewConfirmed] = useState(0)
 	const [newRecovered, setNewRecovered] = useState(0)
@@ -46,67 +42,53 @@ const MainCounter = () => {
 	}
 
 
+	useEffect(() => {
 
-	const fetchAllCounts = async () => {
 
-		const res = await fetch('https://api.covid19api.com/summary')
-		const { Global, Countries } = await res.json()
+		const showCounts = async (country) => {
 
-		setWorldCounts(Global)
-		setCountryCounts(Countries)
-		setCountsFetched(true)
-
-	}
+			if(country === 'world') {
 	
-
-
-	const showCounts = async (country) => {
-
-		if(country === 'world') {
-
-
-			setNewConfirmed(worldCounts.NewConfirmed)
-			setNewRecovered(worldCounts.NewRecovered)
-			setNewDeaths(worldCounts.NewDeaths)
-			setConfirmed(worldCounts.TotalConfirmed)
-			setRecovered(worldCounts.TotalRecovered)
-			setDeaths(worldCounts.TotalDeaths)
-
-		} else {
-
-			const countryData = countryCounts.find(foundCountry => foundCountry.Slug === country)
-
-			if(countryData) {
-				setNewConfirmed(countryData.NewConfirmed)
-				setNewRecovered(countryData.NewRecovered)
-				setNewDeaths(countryData.NewDeaths)
-				setConfirmed(countryData.TotalConfirmed)
-				setRecovered(countryData.TotalRecovered)
-				setDeaths(countryData.TotalDeaths)
+	
+				setNewConfirmed(worldCounts.NewConfirmed)
+				setNewRecovered(worldCounts.NewRecovered)
+				setNewDeaths(worldCounts.NewDeaths)
+				setConfirmed(worldCounts.TotalConfirmed)
+				setRecovered(worldCounts.TotalRecovered)
+				setDeaths(worldCounts.TotalDeaths)
+	
 			} else {
-				setNewConfirmed(0)
-				setNewRecovered(0)
-				setNewDeaths(0)
-				setConfirmed(0)
-				setRecovered(0)
-				setDeaths(0)
+	
+				const countryData = countryCounts.find(foundCountry => foundCountry.Slug === country)
+	
+				if(countryData) {
+					setNewConfirmed(countryData.NewConfirmed)
+					setNewRecovered(countryData.NewRecovered)
+					setNewDeaths(countryData.NewDeaths)
+					setConfirmed(countryData.TotalConfirmed)
+					setRecovered(countryData.TotalRecovered)
+					setDeaths(countryData.TotalDeaths)
+				} else {
+					setNewConfirmed(0)
+					setNewRecovered(0)
+					setNewDeaths(0)
+					setConfirmed(0)
+					setRecovered(0)
+					setDeaths(0)
+				}
 			}
 		}
-	}
 
 
 
-	useEffect(() => {
 		
-
 		if(countsFetched) {
 			showCounts(country)
 		} else {
 			fetchCountries()
-			fetchAllCounts()
 		}
 		
-	}, [country, countsFetched])
+	}, [country, countsFetched, worldCounts, countryCounts])
 
 
 	return (
