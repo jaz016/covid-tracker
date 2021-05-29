@@ -10,7 +10,7 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 
 	const [countries, setCountries] = useState([])
 	const [country, setCountry] = useState('world')
-	const [results, setResults] = useState('today')
+	const [results, setResults] = useState('new')
 
 	const [newConfirmed, setNewConfirmed] = useState(0)
 	const [newRecovered, setNewRecovered] = useState(0)
@@ -113,7 +113,7 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 					<Form.Label htmlFor="results"><strong>Show results for:</strong></Form.Label>
 				</Col>
 				<Col>
-					<Form.Check inline label='Today' name='results' type='radio' value='today' checked={results === 'today'} onChange={(e) => setResults(e.target.value)} ></Form.Check>
+					<Form.Check inline label='New' name='results' type='radio' value='new' checked={results === 'new'} onChange={(e) => setResults(e.target.value)} ></Form.Check>
 					<Form.Check inline label='All-Time' name='results' type='radio' value='all-time' checked={results === 'all-time'} onChange={(e) => setResults(e.target.value)} ></Form.Check>
 				</Col>
 			</Row>
@@ -124,7 +124,7 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 					<Card className="mb-2">
 						<Card.Header><i className='fas fa-user-plus text-warning'></i> Confirmed</Card.Header>
 						<Card.Body className='py-4 text-center'>
-							<Card.Title>{!countsFetched ? <Loader /> : results === 'today' ? newConfirmed.toLocaleString() : confirmed.toLocaleString()}</Card.Title>
+							<Card.Title>{!countsFetched ? <Loader /> : results === 'new' ? newConfirmed.toLocaleString() : confirmed.toLocaleString()}</Card.Title>
 						</Card.Body>
 					</Card>
 				</Col>
@@ -132,7 +132,7 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 					<Card className="mb-2">
 						<Card.Header><i className='fas fa-heartbeat text-success'></i> Recovered</Card.Header>
 						<Card.Body className='py-4 text-center'>
-							<Card.Title>{!countsFetched ? <Loader /> : results === 'today' ? newRecovered.toLocaleString() : recovered.toLocaleString()}</Card.Title>
+							<Card.Title>{!countsFetched ? <Loader /> : results === 'new' ? newRecovered.toLocaleString() : recovered.toLocaleString()}</Card.Title>
 						</Card.Body>
 					</Card>
 				</Col>
@@ -140,7 +140,7 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 					<Card className="mb-2">
 						<Card.Header><i className='fas fa-skull-crossbones text-primary'></i> Deaths</Card.Header>
 						<Card.Body className='py-4 text-center'>
-							<Card.Title>{!countsFetched ? <Loader /> : results === 'today' ? newDeaths.toLocaleString() : deaths.toLocaleString()}</Card.Title>
+							<Card.Title>{!countsFetched ? <Loader /> : results === 'new' ? newDeaths.toLocaleString() : deaths.toLocaleString()}</Card.Title>
 						</Card.Body>
 					</Card>
 				</Col>
