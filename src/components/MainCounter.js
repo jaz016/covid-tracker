@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Form, Card } from 'react-bootstrap'
+import Loader from './Loader'
 
 
 const MainCounter = () => {
@@ -31,6 +32,15 @@ const MainCounter = () => {
 		const res = await fetch('https://api.covid19api.com/countries')
 		const data = await res.json()
 
+		data.sort((a,b) => {
+			if(a.Country < b.Country) {
+				return -1
+			}
+			if(a.Country > b.Country) {
+				return 1
+			}
+			return 0
+		})
 		setCountries(data)
 
 	}
@@ -132,7 +142,7 @@ const MainCounter = () => {
 					<Card className="mb-2">
 						<Card.Header><i className='fas fa-user-plus text-warning'></i> Confirmed</Card.Header>
 						<Card.Body className='py-4 text-center'>
-							<Card.Title>{results === 'today' ? newConfirmed.toLocaleString() : confirmed.toLocaleString()}</Card.Title>
+							<Card.Title>{!countsFetched ? <Loader /> : results === 'today' ? newConfirmed.toLocaleString() : confirmed.toLocaleString()}</Card.Title>
 						</Card.Body>
 					</Card>
 				</Col>
@@ -140,7 +150,7 @@ const MainCounter = () => {
 					<Card className="mb-2">
 						<Card.Header><i className='fas fa-heartbeat text-success'></i> Recovered</Card.Header>
 						<Card.Body className='py-4 text-center'>
-							<Card.Title>{results === 'today' ? newRecovered.toLocaleString() : recovered.toLocaleString()}</Card.Title>
+							<Card.Title>{!countsFetched ? <Loader /> : results === 'today' ? newRecovered.toLocaleString() : recovered.toLocaleString()}</Card.Title>
 						</Card.Body>
 					</Card>
 				</Col>
@@ -148,7 +158,7 @@ const MainCounter = () => {
 					<Card className="mb-2">
 						<Card.Header><i className='fas fa-skull-crossbones text-primary'></i> Deaths</Card.Header>
 						<Card.Body className='py-4 text-center'>
-							<Card.Title>{results === 'today' ? newDeaths.toLocaleString() : deaths.toLocaleString()}</Card.Title>
+							<Card.Title>{!countsFetched ? <Loader /> : results === 'today' ? newDeaths.toLocaleString() : deaths.toLocaleString()}</Card.Title>
 						</Card.Body>
 					</Card>
 				</Col>
