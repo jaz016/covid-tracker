@@ -94,11 +94,11 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 	return (
 		<>
 			<Row className='my-4'>
-				<Col xs={1}>
+				<Col xs={6} lg={1}>
 					<Form.Label htmlFor="world"><strong>Country:</strong></Form.Label>
 					</Col>
-				<Col xs={3}>
-					<Form.Control as="select" custom onChange={(e) => setCountry(e.target.value)}>
+				<Col xs={6} lg={3}>
+					<Form.Control className='mb-2' as="select" custom onChange={(e) => setCountry(e.target.value)}>
 						<option value='world'>World</option>
 						{
 							countries.map(country => (
@@ -107,9 +107,9 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 						}
 					</Form.Control>
 				</Col>
-				<Col xs={2}></Col>
+				<Col lg={2}></Col>
 
-				<Col xs={2}>
+				<Col xs={6} lg={2}>
 					<Form.Label htmlFor="results"><strong>Show results for:</strong></Form.Label>
 				</Col>
 				<Col>
@@ -120,7 +120,7 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 
 
 			<Row className='my-4'>
-				<Col>
+				<Col lg={4}>
 					<Card className="mb-2">
 						<Card.Header><i className='fas fa-user-plus text-warning'></i> Confirmed</Card.Header>
 						<Card.Body className='py-4 text-center'>
@@ -128,7 +128,7 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 						</Card.Body>
 					</Card>
 				</Col>
-				<Col>
+				<Col lg={4}>
 					<Card className="mb-2">
 						<Card.Header><i className='fas fa-heartbeat text-success'></i> Recovered</Card.Header>
 						<Card.Body className='py-4 text-center'>
@@ -136,7 +136,7 @@ const MainCounter = ({ worldCounts, countryCounts, countsFetched }) => {
 						</Card.Body>
 					</Card>
 				</Col>
-				<Col>
+				<Col lg={4}>
 					<Card className="mb-2">
 						<Card.Header><i className='fas fa-skull-crossbones text-primary'></i> Deaths</Card.Header>
 						<Card.Body className='py-4 text-center'>
